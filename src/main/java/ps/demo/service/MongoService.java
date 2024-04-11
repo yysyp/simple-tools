@@ -3,6 +3,7 @@ package ps.demo.service;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.MongoExpression;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -25,13 +26,22 @@ public class MongoService {
     public List<Document> findByKey(String collectionName, String key) {
         Query query = new Query();
         //query.fields().
+        query.fields().include("basic.name", "basic.time", "basic.ver", "user", "data.x", "data.y")
+                .projectAs(MongoExpression.create("""
+                $dateFromString: {
+                    dateString: "$basic.time",
+                    format: "%Y-%m-%dT%H:%M:%SZ"
+                }
+                """), "date1");
+
         StringBuilder regex = new StringBuilder("(?s).*");
         regex.append(Pattern.quote(key));
 
         Criteria criteria = Criteria.where("user").regex(regex.toString(), "si");
         query.addCriteria(criteria);
 
-        query.with(Sort.by(Sort.Direction.DESC, "basic.ver"));
+        query.with(Sort.by(Sort.Direction.DESC, "date1", "basic.ver")); //The date1 doesn't work...
+
 
         return mongoTemplate.find(query, Document.class, collectionName);
     }
