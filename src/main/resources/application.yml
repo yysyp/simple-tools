@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: simple-tools
+  profiles:
+    active: dev
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+
