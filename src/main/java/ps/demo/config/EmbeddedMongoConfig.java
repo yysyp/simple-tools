@@ -9,8 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.UserVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -18,6 +21,7 @@ import java.io.IOException;
 
 @Slf4j
 @Configuration
+@Profile("dev")
 public class EmbeddedMongoConfig {
 
     @Value("${embedded.mongo.port:27017}")

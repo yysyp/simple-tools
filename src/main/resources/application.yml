@@ -15,11 +15,13 @@ spring:
 
 
 ---
+##To set the Environment variables: --spring.profiles.active=sit
 
 spring:
   config:
     activate:
       on-profile: sit
 
-
-
+  mongo:
+    connection: mongodb://localhost:27017/test?retryWrites=false
+    database: test

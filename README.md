@@ -2,3 +2,4 @@
 
 ##### hutool 5.8.20 https://hutool.cn/
 ##### swagger ui: http://localhost:8080/swagger-ui/index.html#/
+##### playwright: https://github.com/microsoft/playwright-java
