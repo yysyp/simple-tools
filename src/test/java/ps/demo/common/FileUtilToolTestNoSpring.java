@@ -5,9 +5,11 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,10 +34,9 @@ class FileUtilToolTestNoSpring {
     }
 
     @Test
-    void toValidFileName() {
+    void toValidFileName() throws JSONException {
         log.info("This is to valid file name");
 
-        RestTemplateTool.getInstance();
 
         //MongoDatabase db = MongoFactory.getDS("master", "slave").getDb("test");
         String result1= HttpUtil.get("https://www.baidu.com");
@@ -46,6 +47,14 @@ class FileUtilToolTestNoSpring {
         paramMap.put("city", "北京");
         String result3 = HttpUtil.get("https://www.baidu.com", paramMap);
         log.info("baidu.com result3={}", result3);
+
+
+        String actualResult = """
+                {"b": 2, "a": 1}
+                """;
+        JSONAssert.assertEquals("""
+                {"a": 1, "b": 2}
+                """, actualResult, false);
 
 
 
