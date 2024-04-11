@@ -26,6 +26,16 @@ public class MongoController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/collection-name/{collectionName}/documents/key")
+    public ResponseEntity<List<Document>> findByCollectionNameByKey(
+            @PathVariable String collectionName,
+            @RequestParam String key
+    ) {
+        List<Document> list = mongoService.findByKey(collectionName, key);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+
     @PostMapping("/collection-name/{collectionName}")
     @Operation(summary = "To create a document in given collection in mongodb",
             description = """
