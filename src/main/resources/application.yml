@@ -5,7 +5,9 @@ spring:
     name: simple-tools
   profiles:
     active: dev
-
+  config:
+    import:
+      - optional:c:/myconfigs/app.yml
 ---
 
 spring:
@@ -14,14 +16,14 @@ spring:
       on-profile: dev
 
 
----
+##Below part moved to "c:/myconfigs/app.yml"
+#---
 ##To set the Environment variables: --spring.profiles.active=sit
-
-spring:
-  config:
-    activate:
-      on-profile: sit
-
-  mongo:
-    connection: mongodb://localhost:27017/test?retryWrites=false
-    database: test
+#spring:
+#  config:
+#    activate:
+#      on-profile: sit
+#
+#  mongo:
+#    connection: mongodb://localhost:27017/test?retryWrites=false
+#    database: test
