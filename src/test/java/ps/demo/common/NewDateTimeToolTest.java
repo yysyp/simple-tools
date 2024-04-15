@@ -3,6 +3,7 @@ package ps.demo.common;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -101,4 +102,29 @@ class NewDateTimeToolTest {
     @Test
     void testBetweenStartAndEnd() {
     }
+
+    @Test
+    void testGetUtcZonedDateTime() {
+        ZonedDateTime zonedDateTime = NewDateTimeTool.getUtcZonedDateTime("2024-01-01T10:11:12.123Z");
+        log.info("getUtcZonedDateTime = {}", zonedDateTime);
+        log.info("getUtcZonedDateTime epoch seconds = {}", zonedDateTime.toInstant().getEpochSecond());
+
+
+    }
+
+    @Test
+    void testGetUtcZonedDateTimeByYmd() {
+        ZonedDateTime zonedDateTime = NewDateTimeTool.getUtcZonedDateTimeByYmd("2024-01-01");
+        log.info("getUtcZonedDateTime = {}", zonedDateTime);
+        log.info("getUtcZonedDateTime epoch seconds = {}", zonedDateTime.toInstant().getEpochSecond());
+
+    }
+
+    @Test
+    void testGetUtcZonedDateTimeByYmdHms() {
+        ZonedDateTime zonedDateTime = NewDateTimeTool.getUtcZonedDateTimeByYmdHms("2024-01-01T10:11:12");
+        log.info("getUtcZonedDateTime = {}", zonedDateTime);
+        log.info("getUtcZonedDateTime epoch seconds = {}", zonedDateTime.toInstant().getEpochSecond());
+    }
+
 }

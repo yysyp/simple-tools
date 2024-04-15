@@ -8,6 +8,13 @@ import java.util.Date;
 
 public class NewDateTimeTool {
 
+    public static String yyyyMMdd = "yyyy-MM-dd";
+
+    public static String yyyyMMddHHmmss = "yyyy-MM-ddTHH:mm:ss";
+    public static String iso8601 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+
+    public static final DateTimeFormatter iso8601UtcDtFormatter = DateTimeFormatter.ofPattern(iso8601).withZone(ZoneOffset.UTC);
+
     public static String dateFormat(Date date, String dateFormat) {
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
         return formatter.format(date);
@@ -149,6 +156,20 @@ public class NewDateTimeTool {
 
     public static Boolean betweenStartAndEnd(Instant nowTime, Instant beginTime, Instant endTime) {
         return (nowTime.equals(beginTime) || nowTime.isAfter(beginTime)) && nowTime.isBefore(endTime);
+    }
+
+
+    public static ZonedDateTime getUtcZonedDateTime(String dateTimeStr) {
+        return ZonedDateTime.parse(dateTimeStr, iso8601UtcDtFormatter);
+    }
+
+    public static ZonedDateTime getUtcZonedDateTimeByYmd(String yyyyMMddStr) {
+        return getUtcZonedDateTime(yyyyMMddStr+"T00:00:00.000Z");
+    }
+
+
+    public static ZonedDateTime getUtcZonedDateTimeByYmdHms(String yyyyMMddThhmmss) {
+        return getUtcZonedDateTime(yyyyMMddThhmmss+".000Z");
     }
 
 }
