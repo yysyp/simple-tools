@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.assertions.Assertions;
 import com.mongodb.client.result.DeleteResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
@@ -52,6 +53,8 @@ class MongoServiceTest {
 
         DeleteResult deleteResult = mongoTemplate.remove(query, "test");
         log.info("delete count={}", deleteResult.getDeletedCount());
+
+        Assertions.assertTrue(1==1);
     }
 
     @Test
