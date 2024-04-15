@@ -2,6 +2,8 @@ package ps.demo.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.result.DeleteResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
@@ -113,8 +115,11 @@ class MongoServiceTest {
 
     }
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
-    void findByDateTime() {
+    void findByDateTime() throws JsonProcessingException {
         ZoneId zoneId = ZoneId.of("UTC");
         LocalDateTime localDateTime = NewDateTimeTool.getStartTimeOfDay(LocalDateTime.now(zoneId));
         Query query = new Query();
@@ -126,6 +131,8 @@ class MongoServiceTest {
 
         List<Document> list = mongoTemplate.find(query, Document.class, "demo1");
         log.info("find count={}", list.size());
+        log.info("-->>objectMapper serialize 0 = " + objectMapper.writeValueAsString(list.get(0)));
+
     }
 
     @Test
@@ -134,6 +141,7 @@ class MongoServiceTest {
         DeleteResult deleteResult = mongoTemplate.remove(query, "demo1");
         log.info("---delete count = {}", deleteResult.getDeletedCount());
     }
+
 
 
 }
