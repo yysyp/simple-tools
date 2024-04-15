@@ -88,8 +88,11 @@ class MongoServiceTest {
             ZonedDateTime zonedDateTime = localDateTime.atZone(zoneId);
             Date date = Date.from(localDateTime.atZone(zoneId).toInstant());
 
+
             log.info("--date="+date.getTime() + " -- localDateTime.atZone(zoneId).toInstant().toEpochMilli()="+localDateTime.atZone(zoneId).toInstant().toEpochMilli()
-            + "--localDateTime.toLocalDate()=" + localDate );
+            + "--localDateTime.toLocalDate()=" + localDate
+            + "--zoneddatetime=" + ZonedDateTime.of(2024, 4, 15, 0, 0, 0, 0, zoneId).toInstant()
+            );
 
             DemoStruct demoStruct = DemoStruct.builder().user(StringUtils.randomAlphanumeric(5)+i)
                     .basic(DemoStruct.Basic.builder().name(StringUtils.randomAlphanumeric(3))
