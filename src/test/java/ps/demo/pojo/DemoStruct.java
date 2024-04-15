@@ -2,6 +2,7 @@ package ps.demo.pojo;
 
 import lombok.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class DemoStruct {
 
         private String name;
         private Date time;
-        private ZonedDateTime bizDate;
+        private Instant bizDate;
         private Integer ver;
 
 

@@ -84,8 +84,10 @@ class MongoServiceTest {
             ZoneId zoneId = ZoneId.of("UTC");
             LocalDateTime localDateTime = NewDateTimeTool.getStartTimeOfDay(LocalDateTime.now(zoneId));
             LocalDate localDate = localDateTime.toLocalDate();
+            ;
             ZonedDateTime zonedDateTime = localDateTime.atZone(zoneId);
             Date date = Date.from(localDateTime.atZone(zoneId).toInstant());
+
             log.info("--date="+date.getTime() + " -- localDateTime.atZone(zoneId).toInstant().toEpochMilli()="+localDateTime.atZone(zoneId).toInstant().toEpochMilli()
             + "--localDateTime.toLocalDate()=" + localDate );
 
@@ -93,7 +95,8 @@ class MongoServiceTest {
                     .basic(DemoStruct.Basic.builder().name(StringUtils.randomAlphanumeric(3))
                             .time(date)
                             //.bizDate(localDateTime.toLocalDate())
-                            .bizDate(zonedDateTime)
+                            //.bizDate(zonedDateTime)
+                            .bizDate(ZonedDateTime.of(2024, 4, 15, 0, 0, 0, 0, zoneId).toInstant())
                             .ver(RandomUtils.nextInt(1, 11)).build())
                     .theData(DemoStruct.TheData.builder().x(RandomUtils.nextInt(100, 1000))
                             .y(RandomUtils.nextInt(100, 1000)).build())
