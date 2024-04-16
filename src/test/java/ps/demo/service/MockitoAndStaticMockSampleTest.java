@@ -71,4 +71,40 @@ public class MockitoAndStaticMockSampleTest {
 
     }
 
+    /**
+     
+    @Test
+    public void testGetVal() {
+        //Outside scope
+        assertEquals("foo", ClassWithStaticMethod.getVal());
+
+        try (MockedStatic mockStatic = mockStatic(ClassWithStaticMethod.class)) {
+
+            mockStatic.when(ClassWithStaticMethod::getVal).thenReturn("bar");
+
+            //Inside scope
+            assertEquals("bar", ClassWithStaticMethod.getVal());
+            mockStatic.verify(ClassWithStaticMethod::getVal);
+        }
+
+        //Outside scope
+        assertEquals("foo", ClassWithStaticMethod.getVal());
+    }
+
+    @Test
+    public void testAdd() {
+        assertEquals(3, ClassWithStaticMethod.add(1, 2));
+
+        try (MockedStatic mockStatic = mockStatic(ClassWithStaticMethod.class)) {
+
+            mockStatic.when(() -> ClassWithStaticMethod.add(anyInt(), anyInt())).thenReturn(10);
+
+            assertEquals(10, ClassWithStaticMethod.add(1, 2));
+            mockStatic.verify(() -> ClassWithStaticMethod.add(1, 2));
+        }
+
+        assertEquals(3, ClassWithStaticMethod.add(1, 2));
+    }
+
+    **/
 }
