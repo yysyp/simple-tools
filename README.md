@@ -1,7 +1,7 @@
 ### This is a simple springboot 3 project.
 
 ##### hutool 5.8.20 https://hutool.cn/
-##### swagger ui: http://localhost:8080/swagger-ui/index.html#/
+##### swagger ui: http://localhost:18888/swagger-ui/index.html#/
 ##### playwright: https://github.com/microsoft/playwright-java
 ##### playwright config: https://blog.csdn.net/m0_67695717/article/details/131166813
 ##### mongodb query: https://zhuanlan.zhihu.com/p/70270239
