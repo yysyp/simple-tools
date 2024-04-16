@@ -23,6 +23,8 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.AggregateIterable;
 import org.bson.Document;
+import ps.demo.common.StringTool;
+
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Projections.*;
 
@@ -34,7 +36,9 @@ public class MongoService {
     MongoTemplate mongoTemplate;
 
     public List<Document> findAll(String collectionName) {
-        return mongoTemplate.findAll(Document.class, collectionName);
+        List<Document> list = mongoTemplate.findAll(Document.class, collectionName);
+        StringTool.printOut(list, System.out);
+        return list;
     }
 
     public List<Document> findByKey(String collectionName, String key) {

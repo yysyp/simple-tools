@@ -158,6 +158,10 @@ public class NewDateTimeTool {
         return (nowTime.equals(beginTime) || nowTime.isAfter(beginTime)) && nowTime.isBefore(endTime);
     }
 
+    public static ZonedDateTime getUtcZonedDateTime(String dateTimeStr, String pattern) {
+        DateTimeFormatter cdtFormatter = DateTimeFormatter.ofPattern(pattern).withZone(ZoneOffset.UTC);
+        return ZonedDateTime.parse(dateTimeStr, cdtFormatter);
+    }
 
     public static ZonedDateTime getUtcZonedDateTime(String dateTimeStr) {
         return ZonedDateTime.parse(dateTimeStr, iso8601UtcDtFormatter);
@@ -171,5 +175,7 @@ public class NewDateTimeTool {
     public static ZonedDateTime getUtcZonedDateTimeByYmdHms(String yyyyMMddThhmmss) {
         return getUtcZonedDateTime(yyyyMMddThhmmss+".000Z");
     }
+
+
 
 }
