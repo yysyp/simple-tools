@@ -3,6 +3,7 @@ package ps.demo.common;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.apache.commons.lang3.RandomUtils;
 import org.bson.Document;
@@ -51,11 +52,13 @@ public class FileUtilJSONUtilTest {
             int y = Integer.parseInt(JSONUtil.getByPath(jsonArray,"$["+i+"].theData.y")+"");
             Document document = Document.parse(str);
             document.put("sum", x+y);
+            JSONObject sumobj = new JSONObject();
+            sumobj.set("xysum", x+y);
+            ((JSONObject)jsonArray.get(i)).set("sum", sumobj);
             Console.log("document={}", document);
-
-
-
         }
+
+        Console.log("jsonArray after={}", jsonArray);
 
     }
 }
