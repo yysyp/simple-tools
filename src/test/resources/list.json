@@ -1,0 +1,67 @@
+[
+    {
+        "basic": {
+            "name": "V29",
+            "time": 1713332551545,
+            "bizDate": 1713139200000,
+            "ver": 4
+        },
+        "user": "VVQM40",
+        "theData": {
+            "x": 899,
+            "y": 471
+        }
+    },
+    {
+        "basic": {
+            "name": "OYZ",
+            "time": 1713332551548,
+            "bizDate": 1713139200000,
+            "ver": 7
+        },
+        "user": "2P9UU1",
+        "theData": {
+            "x": 597,
+            "y": 430
+        }
+    },
+    {
+        "basic": {
+            "name": "ZAR",
+            "time": 1713332551548,
+            "bizDate": 1713139200000,
+            "ver": 8
+        },
+        "user": "UFPTA2",
+        "theData": {
+            "x": 203,
+            "y": 629
+        }
+    },
+    {
+        "basic": {
+            "name": "N9E",
+            "time": 1713332551548,
+            "bizDate": 1713139200000,
+            "ver": 6
+        },
+        "user": "7ENI43",
+        "theData": {
+            "x": 178,
+            "y": 634
+        }
+    },
+    {
+        "basic": {
+            "name": "3ND",
+            "time": 1713332551548,
+            "bizDate": 1713139200000,
+            "ver": 9
+        },
+        "user": "CUP0B4",
+        "theData": {
+            "x": 759,
+            "y": 240
+        }
+    }
+]

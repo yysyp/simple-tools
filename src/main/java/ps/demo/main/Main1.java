@@ -12,7 +12,7 @@ public class Main1 {
     public static void main(String[] args) {
         Map kv = new HashMap<>();
         kv.put("name", "xxx");
-        String str = ThymeleafTool.processText("hello ${env.TMP} ${name}", kv);
+        String str = ThymeleafTool.processText("hello [(${env.TMP})] [(${name})]", kv);
         log.info("str={}", str);
     }
 }

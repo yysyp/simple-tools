@@ -72,7 +72,7 @@ public class MockitoAndStaticMockSampleTest {
     }
 
     /**
-     
+
     @Test
     public void testGetVal() {
         //Outside scope

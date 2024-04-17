@@ -1,8 +1,6 @@
 package ps.demo.common;
 
-import cn.hutool.db.nosql.mongo.MongoFactory;
 import cn.hutool.extra.spring.SpringUtil;
-import com.mongodb.client.MongoDatabase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,13 +12,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @ComponentScan(basePackages={"cn.hutool.extra.spring"})
 @Import(cn.hutool.extra.spring.SpringUtil.class)
 @Slf4j
-class FileUtilToolTest {
+class SpringUtilTest {
 
     @Autowired
     MongoTemplate mongoTemplate;
