@@ -7,6 +7,8 @@ import org.springframework.util.CollectionUtils;
 import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Scanner;
@@ -14,7 +16,9 @@ import java.util.Scanner;
 public class StringXTool {
     public static final char UNDERLINE = '_';
     public static final char HYPHEN = '-';
+    private static final int FILE_NAME_LENGTH = 128;
 
+    public static final String DIR_SEPERATOR = "/";
 
     public static String randomAscii(int bytes) {
         return RandomStringUtils.randomAscii(bytes);
@@ -22,6 +26,11 @@ public class StringXTool {
 
     public static String randomAlphabetic(int bytes) {
         return RandomStringUtils.randomAlphabetic(bytes);
+    }
+
+    public static String toValidFileName(String input) {
+        return StringUtils.abbreviate(input.replaceAll("[:\\\\/*\"?|<>']",
+                "-"), FILE_NAME_LENGTH);
     }
 
     /**
@@ -181,7 +190,14 @@ public class StringXTool {
     public static Date tryStrToDate(String dateStr, String... fmts) {
         if (fmts == null || fmts.length == 0) {
 
-            fmts = new String[]{"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyy-MM-dd'T'HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy-MM", "HH:mm:ss", "HH:mm"};
+            fmts = new String[]{"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS",
+                    "yyyy-MM-dd'T'HH:mm:ss",
+                    "yyyy-MM-dd HH:mm:ss",
+                    "yyyy-MM-dd",
+                    "yyyy-MM",
+                    "HH:mm:ss",
+                    "HH:mm"};
         }
         for (String fmt : fmts) {
             try {
@@ -190,6 +206,28 @@ public class StringXTool {
             }
         }
         return null;
+    }
+
+    public static String getNowDateStrOnly() {
+        return getNowStr("yyyy-MM-dd");
+    }
+
+    public static String getNowTimeStrOnly() {
+        return getNowStr("HHmmss");
+    }
+
+    public static String getNowTimeWithMsStrOnly() {
+        return getNowStr("HHmmssSSS");
+    }
+
+    public static String getNowStr() {
+        return getNowStr("yyyy-MM-dd_HHmmss");
+    }
+
+    public static String getNowStr(String pattern) {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return dateTime.format(formatter);
     }
 
     public static void printOut(Collection c) {
