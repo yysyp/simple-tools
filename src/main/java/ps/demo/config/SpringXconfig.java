@@ -103,7 +103,11 @@ public class SpringXconfig {
     public ConfigurableServletWebServerFactory webServerFactory() {
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
         factory.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> {
-            connector.setProperty("relaxedQueryChars", "|{}[]\\");
+            connector.setProperty("relaxedPathChars", "\"<>[\\]^`{|}+*");
+            connector.setProperty("relaxedQueryChars", "\"<>[\\]^`{|}+*");
+            //The valid characters are defined in RFC 7230 and RFC 3986
+            //这个问题是高版本tomcat中的新特性：就是严格按照 RFC 3986规范进行访问解析，而 RFC 3986规范定义了Url中只允许包含英文字母（a-zA-Z）、数字（0-9）、-_.~4个特殊字符以及所有保留字符(RFC3986中指定了以下字符为保留字符：!* ’ ( ) ; : @ & = + $ , / ? # [ ])
+
         });
         return factory;
     }

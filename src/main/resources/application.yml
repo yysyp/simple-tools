@@ -1,5 +1,8 @@
 server:
   port: 18888
+  tomcat:
+    uri-encoding: UTF-8
+
 spring:
   application:
     name: simple-tools
