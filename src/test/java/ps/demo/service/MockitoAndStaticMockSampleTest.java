@@ -5,11 +5,9 @@ import org.bson.Document;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import ps.demo.common.StringTool;
+import ps.demo.common.StringXTool;
 
 import java.util.List;
 
@@ -54,9 +52,9 @@ public class MockitoAndStaticMockSampleTest {
                 .thenReturn(list);
 
         //static mock begin
-        try(MockedStatic<StringTool> stringToolMockedStatic = Mockito.mockStatic(StringTool.class)) {
+        try(MockedStatic<StringXTool> stringToolMockedStatic = Mockito.mockStatic(StringXTool.class)) {
 
-            stringToolMockedStatic.when(() -> StringTool.printOut(list, System.out))
+            stringToolMockedStatic.when(() -> StringXTool.printOut(list, System.out))
                     .then((invocationOnMock) -> {
                         return null;
                     });

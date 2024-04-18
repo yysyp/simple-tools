@@ -1,8 +1,5 @@
 package ps.demo.service;
 
-import com.mongodb.client.AggregateIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -12,21 +9,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import static java.util.Collections.sort;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.AggregateIterable;
-import org.bson.Document;
-import ps.demo.common.StringTool;
 
-import static com.mongodb.client.model.Aggregates.*;
-import static com.mongodb.client.model.Projections.*;
+import ps.demo.common.StringXTool;
 
 @Service
 public class MongoService {
@@ -37,7 +25,7 @@ public class MongoService {
 
     public List<Document> findAll(String collectionName) {
         List<Document> list = mongoTemplate.findAll(Document.class, collectionName);
-        StringTool.printOut(list, System.out);
+        StringXTool.printOut(list, System.out);
         return list;
     }
 

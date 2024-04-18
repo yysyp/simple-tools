@@ -14,26 +14,42 @@ import java.util.TimeZone;
 
 public class RandomDataTool {
 
-    public static Date randomDateIn(LocalDate inMin, LocalDate exMax) {
-        int year = RandomUtils.nextInt(inMin.getYear(), exMax.getYear());
-        int month = RandomUtils.nextInt(inMin.getMonthValue(), exMax.getMonthValue());
-        int day = RandomUtils.nextInt(inMin.getDayOfMonth(), exMax.getDayOfMonth());
-        LocalDate localDate = LocalDate.of(year, month, day);
-        ZoneId zoneId = ZoneId.systemDefault();
+    public static ZonedDateTime randomDateIn(ZoneId zoneId, int ... minMaxYearsMinMaxMonthsMinMaxDays) {
+        int inMinYear = minMaxYearsMinMaxMonthsMinMaxDays[0];
+        int exMaxYear = minMaxYearsMinMaxMonthsMinMaxDays[1]+1;
+        int inMinMonth = minMaxYearsMinMaxMonthsMinMaxDays[2];
+        int exMaxMonth = minMaxYearsMinMaxMonthsMinMaxDays[3]+1;
+        int inMinDay = minMaxYearsMinMaxMonthsMinMaxDays[4];
+        int exMaxDay = minMaxYearsMinMaxMonthsMinMaxDays[5]+1;
+
+        LocalDate localDate = null;
+        int i = 0;
+        while(i++ < 1000) {
+            try {
+                int year = RandomUtils.nextInt(inMinYear, exMaxYear);
+                int month = RandomUtils.nextInt(inMinMonth, exMaxMonth);
+                int day = RandomUtils.nextInt(inMinDay, exMaxDay);
+                localDate = LocalDate.of(year, month, day);
+                break;
+            } catch (java.time.DateTimeException e) {
+                //ignore Invalid date and retry
+            }
+        }
+        //ZoneId zoneId = ZoneId.systemDefault();
+        if (zoneId == null) {
+            zoneId = ZoneId.of("UTC");
+        }
         ZonedDateTime zdt = localDate.atStartOfDay(zoneId);
-        return Date.from(zdt.toInstant());
+        //return Date.from(zdt.toInstant());
+        return zdt;
     }
 
-    public static Date randomDateTimeIn(LocalDateTime inMin, LocalDateTime exMax) {
-        int year = RandomUtils.nextInt(inMin.getYear(), exMax.getYear());
-        int month = RandomUtils.nextInt(inMin.getMonthValue(), exMax.getMonthValue());
-        int day = RandomUtils.nextInt(inMin.getDayOfMonth(), exMax.getDayOfMonth());
-        int hour = RandomUtils.nextInt(inMin.getHour(), exMax.getHour());
-        int minute = RandomUtils.nextInt(inMin.getMinute(), exMax.getMinute());
-        int second = RandomUtils.nextInt(inMin.getSecond(), exMax.getSecond());
-        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute, second);
-        ZoneId zoneId = ZoneId.systemDefault();
-        return Date.from(dateTime.atZone(zoneId).toInstant());
+    public static ZonedDateTime addRandomTime(ZonedDateTime zonedDateTime) {
+        zonedDateTime = zonedDateTime.withHour(RandomUtils.nextInt(0, 24));
+        zonedDateTime = zonedDateTime.withMinute(RandomUtils.nextInt(0, 60));
+        zonedDateTime = zonedDateTime.withSecond(RandomUtils.nextInt(0, 60));
+        zonedDateTime = zonedDateTime.withNano(RandomUtils.nextInt(0, 1+999999999));
+        return zonedDateTime;
     }
 
     //java.util.Date 本身存储的是时间戳（1970年1月1日 00:00:00 GMT以来此对象表示的毫秒数 ），所以它和时区地域是无关的，只是在显示的时候加载了TimeZone来调整了时间的显示。

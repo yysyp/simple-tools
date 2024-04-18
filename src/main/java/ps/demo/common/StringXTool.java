@@ -9,8 +9,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Scanner;
 
-public class StringTool {
+public class StringXTool {
     public static final char UNDERLINE = '_';
     public static final char HYPHEN = '-';
 
@@ -191,6 +192,10 @@ public class StringTool {
         return null;
     }
 
+    public static void printOut(Collection c) {
+        printOut(c, System.out);
+    }
+
     public static void printOut(Collection c, PrintStream out) {
         if (CollectionUtils.isEmpty(c)) {
             out.println("[]");
@@ -200,5 +205,17 @@ public class StringTool {
             out.println("["+i+++"] " + o);
         }
     }
+
+    public static String readLineFromSystemIn(String prompt) {
+        if (StringUtils.isBlank(prompt)) {
+            prompt = "Please input: ";
+        }
+        Scanner scanner = new Scanner(System.in);
+        String line = scanner.nextLine();
+        scanner.close();
+        return line;
+    }
+
+
 
 }
