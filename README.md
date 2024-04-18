@@ -68,4 +68,4 @@ End Function
 
 or: System.Uri.EscapeDataString(input)
 ```
-
+Excel Button -> right click, assign Macro --> Edit. Toolbar Project Explorer
