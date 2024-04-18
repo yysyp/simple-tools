@@ -210,6 +210,7 @@ public class StringXTool {
         if (StringUtils.isBlank(prompt)) {
             prompt = "Please input: ";
         }
+        System.out.println(prompt);
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
         scanner.close();
