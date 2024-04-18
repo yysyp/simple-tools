@@ -1,29 +1,37 @@
 package ps.demo.common;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 //@SpringBootTest
 @Slf4j
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CounterToolTest {
 
+    @BeforeAll
+    void beforeAll() {
+        log.info("===============before all");
+    }
+
+    @AfterAll
+    void afterAll() {
+        log.info("===============after all");
+    }
     @BeforeEach
     void setUp() {
-        log.info("setUp entered");
-        CounterTool.getInstance().increment("setup");
-        if (CounterTool.getInstance().increasedMoreThenOnce("setup")) return;
+        log.info("---------------setUp entered t={}", Thread.currentThread());
+//        CounterTool.getInstance().increment("setup");
+//        if (CounterTool.getInstance().increasedMoreThenOnce("setup")) return;
 
         log.info("setUp continued...");
     }
 
     @AfterEach
     void tearDown() {
-        log.info("tearDown entered");
-        CounterTool.getInstance().increment("teardown");
-        if (CounterTool.getInstance().increasedMoreThenOnce("teardown")) return;
+        log.info("---------------tearDown entered, t={}", Thread.currentThread());
+//        CounterTool.getInstance().increment("teardown");
+//        if (CounterTool.getInstance().increasedMoreThenOnce("teardown")) return;
 
         log.info("tearDown continued...");
     }
