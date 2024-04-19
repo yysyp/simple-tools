@@ -1,4 +1,10 @@
 server:
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keys/simpledemo.p12
+    key-store-password: simpledemo.sp
+    key-alias: simpledemo
+    enabled: true #Here to turn on/off https
   port: 18888
   tomcat:
     uri-encoding: UTF-8

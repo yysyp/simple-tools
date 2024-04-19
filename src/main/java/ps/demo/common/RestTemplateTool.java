@@ -1,5 +1,6 @@
 package ps.demo.common;
 
+import cn.hutool.http.ssl.TrustAnyHostnameVerifier;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -9,6 +10,7 @@ import org.apache.hc.client5.http.io.HttpClientConnectionManager;
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder;
 import org.apache.hc.client5.http.ssl.TrustAllStrategy;
+import org.apache.hc.client5.http.ssl.TrustSelfSignedStrategy;
 import org.apache.hc.core5.ssl.SSLContexts;
 import org.apache.hc.core5.ssl.TrustStrategy;
 import org.springframework.core.ParameterizedTypeReference;
@@ -48,20 +50,27 @@ public class RestTemplateTool {
         private static final RestTemplateTool INSTANCE = new RestTemplateTool();
     }
 
-    public static RestTemplate getInstance() {
+    public static RestTemplateTool getInstance() {
+        return RestTemplateToolHolder.INSTANCE;
+    }
+
+    public static RestTemplate getRestTemplate() {
         return RestTemplateToolHolder.INSTANCE.restTemplate;
     }
 
     private RestTemplate initRestTemplate() throws Exception {
 
         final SSLContext sslcontext = SSLContexts.custom().loadTrustMaterial(null, new TrustAllStrategy()).build();
-        final SSLConnectionSocketFactory sslSocketFactory = SSLConnectionSocketFactoryBuilder.create().setSslContext(sslcontext).build();
+        final SSLConnectionSocketFactory sslSocketFactory = SSLConnectionSocketFactoryBuilder.create().setSslContext(sslcontext)
+                .setHostnameVerifier(new TrustAnyHostnameVerifier()).build();
         final HttpClientConnectionManager cm = PoolingHttpClientConnectionManagerBuilder.create().setSSLSocketFactory(sslSocketFactory).build();
         CloseableHttpClient httpClient = HttpClients.custom().setConnectionManager(cm).evictExpiredConnections().build();
 
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
         requestFactory.setHttpClient(httpClient);
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
+        requestFactory.setConnectionRequestTimeout(5000);
+        requestFactory.setConnectTimeout(10000);
+        RestTemplate restTemplate = new RestTemplate(requestFactory); //getRequestFactory());
         restTemplate.setErrorHandler(new ResponseErrorHandler() {
             @Override
             public boolean hasError(ClientHttpResponse response) throws IOException {
@@ -203,5 +212,35 @@ public class RestTemplateTool {
             throw new RuntimeException(e);
         }
     }
+
+    public ResponseEntity<String> putBodyObjectForStr(String url, Object requestBody) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Object> request = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                request,
+                String.class
+        );
+
+        return response;
+    }
+
+    public ResponseEntity<String> patchBodyObjectForStr(String url, Object requestBody) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Object> request = new HttpEntity<>(requestBody, headers);
+
+        return restTemplate.exchange(
+                url,
+                HttpMethod.PATCH,
+                request,
+                String.class
+        );
+    }
+
+
 
 }

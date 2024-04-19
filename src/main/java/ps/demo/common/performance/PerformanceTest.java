@@ -37,7 +37,7 @@ public class PerformanceTest {
                     reqObj.setFileStr(StringXTool.randomAlphabetic(32));
                     String result = null;
                     try {
-                        result = RestTemplateTool.getInstance().postForObject("http://localhost:8080/api/hi", JSONUtil.toJsonStr(reqObj), String.class);
+                        result = RestTemplateTool.getRestTemplate().postForObject("http://localhost:8080/api/hi", JSONUtil.toJsonStr(reqObj), String.class);
                     } catch (Exception ex) {
                         result = ex.getMessage();
                     }

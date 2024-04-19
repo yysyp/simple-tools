@@ -2,6 +2,7 @@ package ps.demo.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,64 @@ public class MongoController {
     MongoService mongoService;
 
     //http://localhost:18888/api/mongo/hi?p1=+
-    @GetMapping("/hi")
-    public ResponseEntity<String> hi(
-            @RequestParam(name = "p1", required = true) String p1,
+    @GetMapping("/higet")
+    public ResponseEntity<String> higet(
+            @RequestParam(name = "par", required = true) String par,
             HttpServletRequest request
     ) {
-        log.info("===>>p1=[{}]", p1);
+        log.info("===>>par={}", par);
         log.info("===>>req={}", request.getParameterMap());
-        return new ResponseEntity<>("["+p1+"]", HttpStatus.OK);
+        return new ResponseEntity<>("["+par+"]", HttpStatus.OK);
     }
+
+    @PostMapping("/hipost")
+    public ResponseEntity<String> hipost(
+            @RequestParam(name = "par", required = false) String par,
+            @RequestBody(required = false) String reqBody,
+            HttpServletRequest request
+    ) {
+        log.info("===>>reqPar={}", par);
+        log.info("===>>reqBody={}", reqBody);
+
+        return new ResponseEntity<>(par+reqBody, HttpStatus.OK);
+    }
+
+    @PutMapping("/hiput")
+    public ResponseEntity<String> hiput(
+            @RequestParam(name = "par", required = false) String par,
+            @RequestBody(required = false) String reqBody,
+            HttpServletRequest request
+    ) {
+        log.info("===>>reqPar={}", par);
+        log.info("===>>reqBody={}", reqBody);
+
+        return new ResponseEntity<>(par+reqBody, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/hidel")
+    public ResponseEntity<String> hidel(
+            @RequestParam(name = "par", required = false) String par,
+            @RequestBody(required = false) String reqBody,
+            HttpServletRequest request
+    ) {
+        log.info("===>>reqPar={}", par);
+        log.info("===>>reqBody={}", reqBody);
+
+        return new ResponseEntity<>(par+reqBody, HttpStatus.OK);
+    }
+
+    @PatchMapping("/hipatch")
+    public ResponseEntity<String> hipatch(
+            @RequestParam(name = "par", required = false) String par,
+            @RequestBody(required = false) String reqBody,
+            HttpServletRequest request
+    ) {
+        log.info("===>>reqPar={}", par);
+        log.info("===>>reqBody={}", reqBody);
+
+        return new ResponseEntity<>(par+reqBody, HttpStatus.OK);
+    }
+
 
     @GetMapping("/collection-name/{collectionName}/documents")
     public ResponseEntity<List<Document>> findByCollectionName(

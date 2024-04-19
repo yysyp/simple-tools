@@ -1,0 +1,9 @@
+
+keytool -genkey -dname "CN=simpledemo,OU=Farming,O=Dm,L=SH,ST=SH,C=CN" -alias simpledemo -keyalg RSA -keysize 2048 -keystore simpledemo.keystore -keypass simpledemo.kp -storepass simpledemo.sp -validity 36500
+
+#Keytool uses storepass and keypass for different purposes.
+#storepass is used to access the key store
+#keypass is used to access the particular key pair's private key.
+
+keytool -importkeystore -srckeystore simpledemo.keystore -destkeystore simpledemo.p12 -deststoretype pkcs12 -destkeypass simpledemo.kp
+
