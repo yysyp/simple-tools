@@ -105,13 +105,14 @@ public class RestTemplateTool {
     }
 
 
-    public String submitFormForString(String url, HttpHeaders headers, MultiValueMap<String, Object> formMap) {
+    public ResponseEntity<String> postSubmitFormMultiValueMapForStr(String url, HttpHeaders headers, MultiValueMap<String, Object> formMap) {
         ParameterizedTypeReference<String> responseType = new ParameterizedTypeReference<String>() {
         };
-        return submitFormForObject(url, headers, formMap, responseType).getBody();
+        ResponseEntity<String> responseEntity = postSubmitFormMultiValueMapForT(url, headers, formMap, responseType);
+        return responseEntity;
     }
 
-    public <T> ResponseEntity<T> submitFormForObject(String url, HttpHeaders headers, MultiValueMap<String, Object> formMap, ParameterizedTypeReference<T> responseType) {
+    public <T> ResponseEntity<T> postSubmitFormMultiValueMapForT(String url, HttpHeaders headers, MultiValueMap<String, Object> formMap, ParameterizedTypeReference<T> responseType) {
         if (null == headers.getContentType()) {
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         }
@@ -125,18 +126,18 @@ public class RestTemplateTool {
         }
     }
 
-    public String postJsonObjectForString(String url, String jsonStr) {
+    public ResponseEntity<String> postJsonStrForStr(String url, String jsonStr) {
         ParameterizedTypeReference<String> responseType = new ParameterizedTypeReference<String>() {
         };
-        return postJsonObjectForObject(url, jsonStr, responseType).getBody();
+        return postJsonStrForT(url, jsonStr, responseType);
     }
 
-    public <T> ResponseEntity<T> postJsonObjectForObject(String url, String jsonStr, ParameterizedTypeReference<T> responseType) {
+    public <T> ResponseEntity<T> postJsonStrForT(String url, String jsonStr, ParameterizedTypeReference<T> responseType) {
         HttpHeaders headers = new HttpHeaders();
-        return postJsonObjectForObject(url, headers, jsonStr, responseType);
+        return postJsonStrForT(url, headers, jsonStr, responseType);
     }
 
-    public <T> ResponseEntity<T> postJsonObjectForObject(String url, HttpHeaders headers, String jsonStr, ParameterizedTypeReference<T> responseType) {
+    public <T> ResponseEntity<T> postJsonStrForT(String url, HttpHeaders headers, String jsonStr, ParameterizedTypeReference<T> responseType) {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(jsonStr, headers);
         try {
@@ -148,15 +149,15 @@ public class RestTemplateTool {
         }
     }
 
-    public String getForString(String url, Object... uriVariables) {
+    public ResponseEntity<String> getWithUriVariableObjectsForStr(String url, Object... uriVariables) {
         ParameterizedTypeReference<String> responseType = new ParameterizedTypeReference<String>() {
         };
-        return getForObject(url, responseType, uriVariables).getBody();
+        return getWithUriVariableObjectsForT(url, responseType, uriVariables);
     }
 
-    public <T> ResponseEntity<T> getForObject(String url, ParameterizedTypeReference<T> responseType, Object... uriVariables) {
+    public <T> ResponseEntity<T> getWithUriVariableObjectsForT(String url, ParameterizedTypeReference<T> responseType, Object... uriVariables) {
         HttpHeaders headers = new HttpHeaders();
-        return getForObject(url, headers, responseType, uriVariables);
+        return getWithUriVariableObjectsForT(url, headers, responseType, uriVariables);
     }
 
     /**
@@ -187,7 +188,7 @@ public class RestTemplateTool {
      * @param <T>
      * @return
      */
-    public <T> ResponseEntity<T> getForObject(String url, HttpHeaders headers, ParameterizedTypeReference<T> responseType, Object... uriVariables) {
+    public <T> ResponseEntity<T> getWithUriVariableObjectsForT(String url, HttpHeaders headers, ParameterizedTypeReference<T> responseType, Object... uriVariables) {
         HttpEntity<String> request = new HttpEntity<>(headers);
         try {
             ResponseEntity<T> responseEntity = restTemplate.exchange(
@@ -199,36 +200,6 @@ public class RestTemplateTool {
             return responseEntity;
         } catch (Exception e) {
             log.info("Rest call getForObject error, url={}, message={}", url, e.getMessage(), e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * This doesNOT work!
-     * This is still not working, internally it will convert to use POST method for the request.
-     * Use getWithRequestBody instead.
-     *
-     * @param url:          the url to call
-     * @param headers:      request header
-     * @param requestBody:  request body
-     * @param responseType: response type
-     * @param uriVariables: URL variables to replace in url. i.e: ?user={userId}&age={age}
-     * @param <T>           Response Type.
-     * @return Response Http Status & Body
-     */
-    @Deprecated
-    public <T> ResponseEntity<T> getWithRequestBodyForObject(String url, HttpHeaders headers, String requestBody, ParameterizedTypeReference<T> responseType, Map<String, ?> uriVariables) {
-        HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
-        try {
-            ResponseEntity<T> responseEntity = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    request,
-                    responseType, uriVariables
-            );
-            return responseEntity;
-        } catch (Exception e) {
-            log.info("Rest call getWithRequestBodyForObject error, url={}, message={}", url, e.getMessage(), e);
             throw new RuntimeException(e);
         }
     }
