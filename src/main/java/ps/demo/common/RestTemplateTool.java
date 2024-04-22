@@ -213,6 +213,22 @@ public class RestTemplateTool {
         }
     }
 
+    public <T> ResponseEntity<T> getWithUriVariableObjectMapForT(String url, HttpHeaders headers, ParameterizedTypeReference<T> responseType, Map uriVariableMap) {
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        try {
+            ResponseEntity<T> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    request,
+                    responseType, uriVariableMap
+            );
+            return responseEntity;
+        } catch (Exception e) {
+            log.info("Rest call getForObject error, url={}, message={}", url, e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
+    }
+
     public ResponseEntity<String> putBodyObjectForStr(String url, Object requestBody) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
