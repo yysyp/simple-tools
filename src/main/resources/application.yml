@@ -8,22 +8,35 @@ server:
   port: 18888
   tomcat:
     uri-encoding: UTF-8
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
 
 spring:
   application:
     name: simple-tools
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   profiles:
     active: dev
   config:
     import:
       - optional:c:/myconfigs/app.yml
+
 ---
 
 spring:
   config:
     activate:
       on-profile: dev
-
 
 ##Below part moved to "c:/myconfigs/app.yml"
 #---

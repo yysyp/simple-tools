@@ -30,6 +30,9 @@ public class MongoController {
     ) {
         log.info("===>>par={}", par);
         log.info("===>>req={}", request.getParameterMap());
+        log.info("===>>try par.charAt(3)");
+        char c = par.charAt(3);
+
         return new ResponseEntity<>("["+par+"]", HttpStatus.OK);
     }
 
