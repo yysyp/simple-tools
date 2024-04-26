@@ -69,3 +69,10 @@ End Function
 or: System.Uri.EscapeDataString(input)
 ```
 Excel Button -> right click, assign Macro --> Edit. Toolbar Project Explorer
+
+W3C http traceparent Headers:
+base16 version (2)
+base16 trace-id (32)
+base16 parent-id (16)
+base16 (trace-flags) (2)
+traceparent=00-11111111111111111111111111111111-1234567890123456-00
