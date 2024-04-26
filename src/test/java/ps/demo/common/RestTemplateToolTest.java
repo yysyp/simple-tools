@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RestTemplateToolTest {
 
-    @Test
+    //@Test
     void deleteResource() {
         String url = "http://localhost:18888/api/mongo/hidel";
         RestTemplateTool.getRestTemplate().delete(url);
     }
 
-    @Test
+    //@Test
     void putBodyObjectForStr() {
         String url = "http://localhost:18888/api/mongo/hiput";
         String reqBody = "{'a': '1', 'b': 2}";
@@ -21,7 +21,7 @@ class RestTemplateToolTest {
         Console.log("body = {}", body);
     }
 
-    @Test
+    //@Test
     void patchBodyObjectForStr() {
         String url = "http://localhost:18888/api/mongo/hipatch";
         String reqBody = "{'a': '1', 'b': 2}";
@@ -49,7 +49,7 @@ class RestTemplateToolTest {
     void testPostJsonStrForT() {
     }
 
-    @Test
+    //@Test
     void getWithUriVariableObjectsForStr() {
         String url = "https://localhost:18888/api/mongo/higet?par={par}";
         //String reqBody = "{'a': '1', 'b': 2}";
