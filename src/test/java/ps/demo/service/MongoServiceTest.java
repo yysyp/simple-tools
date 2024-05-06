@@ -155,7 +155,7 @@ class MongoServiceTest {
     void queryWithPagination() {
         int totalElements = 40;
         //int pageNumber = 0;
-        int pageSize = 9;
+        int pageSize = 10;
         int totalPages = (totalElements + pageSize - 1) / pageSize;
 
         for (int i = 0; i < totalPages; i++) {
@@ -176,11 +176,13 @@ class MongoServiceTest {
             });
 
             //return page;
-            log.info("--->>mongo data query in pagination: totalElements={}, pageSize={}, totalPages={}, content={}",
+            List<Document> contentOfPage = page.getContent();
+            log.info("--->>mongo data query in pagination: totalElements={}, pageSize={}, totalPages={}, contentSize={}, content={}",
                     page.getTotalElements(),
                     pageSize,
                     page.getTotalPages(),
-                    page.getContent());
+                    contentOfPage.size(),
+                    contentOfPage);
         }
     }
 
