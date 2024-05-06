@@ -1,5 +1,7 @@
 package ps.demo.controller;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
@@ -18,11 +20,13 @@ import java.util.List;
 @RequestMapping("/api/mongo")
 public class MongoController {
 
+    private static final String BACKEND_A = "backendA";
 
     @Autowired
     MongoService mongoService;
 
     //http://localhost:18888/api/mongo/hi?p1=+
+    @RateLimiter(name = BACKEND_A)
     @GetMapping("/higet")
     public ResponseEntity<String> higet(
             @RequestParam(name = "par", required = true) String par,
