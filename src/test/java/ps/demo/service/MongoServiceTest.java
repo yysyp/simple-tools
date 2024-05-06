@@ -13,9 +13,14 @@ import org.bson.Document;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.test.context.ActiveProfiles;
 import org.thymeleaf.util.StringUtils;
 import ps.demo.common.NewDateTimeTool;
@@ -145,6 +150,39 @@ class MongoServiceTest {
         log.info("---delete count = {}", deleteResult.getDeletedCount());
     }
 
+
+    @Test
+    void queryWithPagination() {
+        int totalElements = 40;
+        //int pageNumber = 0;
+        int pageSize = 9;
+        int totalPages = (totalElements + pageSize - 1) / pageSize;
+
+        for (int i = 0; i < totalPages; i++) {
+            int pageNumber = i;
+
+            String collectionName = "demo1";
+            Query query = new Query();
+            Criteria criteria = Criteria.where("basic.time").gte(0l);
+            query.addCriteria(criteria);
+
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            query.with(pageable);
+            Sort sort = Sort.by(Sort.Direction.DESC, new String[]{"basic.time"});
+            query.with(sort);
+            List<Document> list = this.mongoTemplate.find(query, Document.class, collectionName);
+            Page<Document> page = PageableExecutionUtils.getPage(list, pageable, () -> {
+                return this.mongoTemplate.count(Query.of(query).limit(-1).skip(-1), Document.class, collectionName);
+            });
+
+            //return page;
+            log.info("--->>mongo data query in pagination: totalElements={}, pageSize={}, totalPages={}, content={}",
+                    page.getTotalElements(),
+                    pageSize,
+                    page.getTotalPages(),
+                    page.getContent());
+        }
+    }
 
 
 }
