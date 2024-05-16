@@ -3,6 +3,7 @@ package ps.demo.common;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -174,6 +175,22 @@ public class NewDateTimeTool {
 
     public static ZonedDateTime getUtcZonedDateTimeByYmdHms(String yyyyMMddThhmmss) {
         return getUtcZonedDateTime(yyyyMMddThhmmss+".000Z");
+    }
+
+    public static long zonedDateTimeBetweenIn(ZonedDateTime d1, ZonedDateTime d2, ChronoUnit unit) {
+        return unit.between(d1, d2);
+    }
+
+    public static ZonedDateTime getFirstDayOfMonth(ZonedDateTime zonedDateTime) {
+        YearMonth yearMonth = YearMonth.from(zonedDateTime);
+        LocalDate firstDayOfMonth = yearMonth.atDay(1);
+        return firstDayOfMonth.atStartOfDay(ZoneOffset.UTC);
+    }
+
+    public static ZonedDateTime getLastDayOfMonth(ZonedDateTime zonedDateTime) {
+        YearMonth yearMonth = YearMonth.from(zonedDateTime);
+        LocalDate lastDayOfMonth = yearMonth.atEndOfMonth();
+        return lastDayOfMonth.atStartOfDay(ZoneOffset.UTC);
     }
 
 
