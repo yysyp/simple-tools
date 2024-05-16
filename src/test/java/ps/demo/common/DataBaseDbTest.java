@@ -11,15 +11,17 @@ import java.sql.SQLException;
 public class DataBaseDbTest {
 
     public static Long insert(String sql) throws SQLException {
-        Setting setting = new Setting("c:/myconfigs/config.setting");
-        DSFactory dsFactory = DSFactory.create(setting);
-        DataSource ds = dsFactory.getDataSource();
-        Long id = Db.use(ds).insertForGeneratedKey(Entity.create("user")
-                .set("name", "unitTestUser")
-                .set("age", 66));
 
-        dsFactory.close();
-        return id;
+        Setting setting = new Setting("c:/myconfigs/config.setting"); //config-sample.setting
+        try (DSFactory dsFactory = DSFactory.create(setting);) {
+            //DataSource ds = dsFactory.getDataSource();
+            DataSource ds = dsFactory.getDataSource("postgres-dev");
+            Long id = Db.use(ds).insertForGeneratedKey(Entity.create("user")
+                    .set("name", "unitTestUser")
+                    .set("age", 66));
+            return id;
+        }
+
     }
 
 }

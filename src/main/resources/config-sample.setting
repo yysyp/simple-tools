@@ -1,0 +1,17 @@
+[mysql]
+url = mysql:xxxx
+
+[postgres-dev]
+url=jdbc:postgresql://localhost:12345/testdb
+username=postgres
+password=12345678
+driver=org.postgresql.Driver
+showSql=true
+formatSql=false
+showParams=true
+sqlLevel=debug
+
+
+[mongo]
+mongoConn=mongodb://localhost:27017/test?retryWrites=false
+db=test
