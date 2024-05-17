@@ -2,12 +2,14 @@ package ps.demo.easyexcel;
 
 import cn.hutool.core.lang.Console;
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.google.gson.Gson;
 import lombok.SneakyThrows;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,11 +17,9 @@ import ps.demo.common.FileTool;
 
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -47,6 +47,9 @@ public class Main {
         EasyExcel.read(file, DemoData.class, new ReadListener<DemoData>() {
             @Override
             public void invoke(DemoData o, AnalysisContext analysisContext) {
+                if (lineNull(o)) {
+                    return;
+                }
                 readList.add(o);
             }
 
@@ -84,6 +87,9 @@ public class Main {
 //                    }
                     dataMap.put(key, value);
                 }
+                if (mapNull(dataMap)) {
+                    return;
+                }
                 readListInListMap.add(dataMap);
             }
 
@@ -115,5 +121,36 @@ public class Main {
         return columnName.reverse().toString();
     }
 
+    public static <T> boolean lineNull(T line) {
+        if (line instanceof String) {
+            return StringUtils.isEmpty((String)line);
+        }
+        try {
+            Set<Field> fieldSet = Arrays.stream(line.getClass().getDeclaredFields())
+                    .filter(f -> f.isAnnotationPresent(ExcelProperty.class)).collect(Collectors.toSet());
+            for (Field field : fieldSet) {
+                field.setAccessible(true);
+                if(field.get(line) != null) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean mapNull(Map<String, Object> line) {
+        if (line == null || line.size() == 0) {
+            return true;
+        }
+        for (Map.Entry<String, Object> entry : line.entrySet()) {
+            if (entry.getValue() != null) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
