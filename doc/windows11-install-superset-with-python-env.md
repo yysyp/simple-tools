@@ -81,9 +81,13 @@ superset load_examples
 -----------------------------------------以上完成基础部署--------------------------------------------------------
 
 运行每次运行superset 按照如下步骤
+0, open Anaconda Prompt
 1、激活虚拟环境conda activate superset_env
 2、设置FLASK_APP: set FLASK_APP=superset
 3、运行superset: superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger
+4, visit: http://localhost:8088/login/
+login with: admin admin
+
 
 作者：傅远柴
 链接：https://www.zhihu.com/question/358295896/answer/3356063552
