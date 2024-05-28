@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,9 @@ public class MongoController {
             @RequestParam(name = "par", required = true) String par,
             HttpServletRequest request
     ) {
+
+        String traceId = MDC.get("traceId");
+        log.info("===>>traceId={}", traceId);
         log.info("===>>par={}", par);
         log.info("===>>req={}", request.getParameterMap());
         log.info("===>>try par.charAt(3)");

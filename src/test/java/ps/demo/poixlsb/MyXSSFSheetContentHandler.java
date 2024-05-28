@@ -53,6 +53,12 @@ public class MyXSSFSheetContentHandler<T> implements XSSFSheetXMLHandler.SheetCo
         if (i >= headerRow) {
             try {
                 data = clazz.getDeclaredConstructor().newInstance();
+                Field field = fieldColumnMap.get("ROW_NUM");
+                if (field == null) {
+                    return;
+                }
+                field.setAccessible(true);
+                field.set(data, i + 1);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -94,7 +100,14 @@ public class MyXSSFSheetContentHandler<T> implements XSSFSheetXMLHandler.SheetCo
     }
 
     private Object convertToType(Field field, String value) throws ParseException {
+        if (value == null) {
+            return null;
+        }
         Class<?> fieldType = field.getType();
+        if (!String.class.isAssignableFrom(fieldType)
+        && StringUtils.isBlank(value)) {
+            return null;
+        }
         if (String.class.isAssignableFrom(fieldType)) {
             return value;
         } else if (Date.class.isAssignableFrom(fieldType)) {

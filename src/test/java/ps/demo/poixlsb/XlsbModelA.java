@@ -12,6 +12,9 @@ import ps.demo.annotation.XlsbRowObjAttribute;
 @ToString
 public class XlsbModelA {
 
+    @XlsbRowObjAttribute(columnName = "ROW_NUM")
+    private Integer rowNum;
+
     @XlsbRowObjAttribute(columnName = "A", format = "MM/dd/yyyy")
     private String startDate;
 
