@@ -21,7 +21,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @Profile("!dev")
 public class ServerMongoConfig {
 
-    @Value("${spring.mongo.connection:mongodb://localhost:27017/test?retryWrites=false}")
+    @Value("${spring.mongo.connection:mongodb://localhost:28028/test?retryWrites=false}")
     private String mongoDbString;
 
     @Value("${spring.mongo.database:test}")

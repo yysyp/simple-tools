@@ -13,5 +13,5 @@ sqlLevel=debug
 
 
 [mongo]
-mongoConn=mongodb://localhost:27017/test?retryWrites=false
+mongoConn=mongodb://localhost:28028/test?retryWrites=false
 db=test

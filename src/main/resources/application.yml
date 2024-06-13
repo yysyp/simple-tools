@@ -47,7 +47,7 @@ spring:
 #      on-profile: sit
 #
 #  mongo:
-#    connection: mongodb://localhost:27017/test?retryWrites=false
+#    connection: mongodb://localhost:28028/test?retryWrites=false
 #    database: test
 
 #https://resilience4j.readme.io/docs/getting-started-3

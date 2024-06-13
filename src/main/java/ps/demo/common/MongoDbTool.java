@@ -16,7 +16,7 @@ public class MongoDbTool {
     //mongodb://user:pass@1.1.1.1,2.2.2.2/?tls=true&replicaSet=xxx
     public static MongoClient mongoClient(String mongodbConn) {
         if (StringUtils.isBlank(mongodbConn)) {
-            mongodbConn = "mongodb://127.0.0.1:27017/test?retryWrites=false";
+            mongodbConn = "mongodb://127.0.0.1:28028/test?retryWrites=false";
         }
         ConnectionString connectionString = new ConnectionString(mongodbConn);
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(connectionString).build();

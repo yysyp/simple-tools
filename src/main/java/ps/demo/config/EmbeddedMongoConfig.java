@@ -24,7 +24,7 @@ import java.io.IOException;
 @Profile("dev")
 public class EmbeddedMongoConfig {
 
-    @Value("${embedded.mongo.port:27017}")
+    @Value("${embedded.mongo.port:28028}")
     private int mongoPort;
 
     @Bean
@@ -32,7 +32,7 @@ public class EmbeddedMongoConfig {
         MemoryBackend memoryBackend = new MemoryBackend();
         memoryBackend.openOrCreateDatabase("test");
         MongoServer server = new MongoServer(memoryBackend);
-        server.bind("localhost", 27017);
+        server.bind("localhost", 28028);
         return server;
     }
 
@@ -46,7 +46,7 @@ public class EmbeddedMongoConfig {
 
     @Bean
     public MongoClient mongoClient(@Autowired MongoServer mongoServer) {
-        return MongoClients.create("mongodb://localhost:27017/test?retryWrites=false");
+        return MongoClients.create("mongodb://localhost:28028/test?retryWrites=false");
     }
 
     @Bean
