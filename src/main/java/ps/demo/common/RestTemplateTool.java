@@ -135,6 +135,21 @@ public class RestTemplateTool {
         }
     }
 
+
+    public <T> ResponseEntity<T> postSubmitFormMultiValueMapWithUriVariableObjectsForT(String url, HttpHeaders headers, MultiValueMap<String, Object> formMap, ParameterizedTypeReference<T> responseType, Object... uriVariables) {
+        if (null == headers.getContentType()) {
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        }
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(formMap, headers);
+        try {
+            ResponseEntity<T> responseEntity = restTemplate.exchange(url, HttpMethod.POST, request, responseType, uriVariables);
+            return responseEntity;
+        } catch (Exception e) {
+            log.info("Rest call submitFormForObject error, url={}, message={}", url, e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
+    }
+
     public ResponseEntity<String> postJsonStrForStr(String url, String jsonStr) {
         ParameterizedTypeReference<String> responseType = new ParameterizedTypeReference<String>() {
         };

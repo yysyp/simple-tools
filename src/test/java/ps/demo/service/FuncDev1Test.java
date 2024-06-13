@@ -26,7 +26,8 @@ public class FuncDev1Test extends FuncBaseTest {
     @Test
     public void uploadFile() {
         File file = new File("C:\\Users\\yysyp\\Desktop\\tmp\\1.jpg");
-        String url = "http://localhost:8080/api/upload/file?key=aaaxx";
+        String key = "aaabbbccc";
+        String url = "http://localhost:8080/api/upload/file?key={key}";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -37,8 +38,8 @@ public class FuncDev1Test extends FuncBaseTest {
         ParameterizedTypeReference<String> responseType = new ParameterizedTypeReference<String>() {
         };
 
-        String body = RestTemplateTool.getInstance().postSubmitFormMultiValueMapForT(
-                url, headers, formMap, responseType
+        String body = RestTemplateTool.getInstance().postSubmitFormMultiValueMapWithUriVariableObjectsForT(
+                url, headers, formMap, responseType, key
         ).getBody();
         Console.log("body = {}", body);
     }
