@@ -30,6 +30,8 @@ public class WebServerApplication implements ApplicationRunner {
                 maxMemory / 1024 / 1024, totalMemory / 1024 / 1024,
                 (maxMemory - totalMemory) / 1024 / 1024);
         log.info("System.getenv() = {}", System.getenv());
+        int processors = Runtime.getRuntime().availableProcessors();
+        log.info("Available processors = {}", processors);
         SpringApplication.run(WebServerApplication.class, args);
     }
 
