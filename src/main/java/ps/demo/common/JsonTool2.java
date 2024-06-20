@@ -3,9 +3,7 @@ package ps.demo.common;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.type.descriptor.java.ObjectJavaType;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,9 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class JsonTool {
+public class JsonTool2 {
 
-    private JsonTool() {}
+    private JsonTool2() {}
 
     private enum JsonOper {
         GET,

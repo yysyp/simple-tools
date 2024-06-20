@@ -3,7 +3,6 @@ package ps.demo.common;
 import com.google.gson.Gson;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.ObjectUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +22,7 @@ public class ResultSetTool {
         while (resultSet.next()) {
             Object obj = constructGson();
             for (int i = 0; i < totalCol; i++) {
-                JsonTool.setField(obj, resultSet.getMetaData().getColumnLabel(i + 1)
+                JsonTool2.setField(obj, resultSet.getMetaData().getColumnLabel(i + 1)
                 , processObjectVal(resultSet.getObject(i + 1)));
             }
             list.add(obj);

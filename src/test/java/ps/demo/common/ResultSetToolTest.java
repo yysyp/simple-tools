@@ -1,18 +1,13 @@
 package ps.demo.common;
 
-import cn.hutool.db.Db;
-import cn.hutool.db.Entity;
 import cn.hutool.db.ds.DSFactory;
 import cn.hutool.setting.Setting;
-import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ResultSetToolTest {
 /*
@@ -42,20 +37,20 @@ sqlLevel=debug
 
             StringXTool.printOut(result);
 
-            Map row1 = JsonTool.getField(result, "1", Map.class);
+            Map row1 = JsonTool2.getField(result, "1", Map.class);
             System.out.println(row1);
-            String name = JsonTool.getField(row1, "Name", String.class);
+            String name = JsonTool2.getField(row1, "Name", String.class);
             System.out.println(name);
 
-            JsonTool.setField(row1, "Name", "xxx");
-            name = JsonTool.getField(row1, "Name", String.class);
+            JsonTool2.setField(row1, "Name", "xxx");
+            name = JsonTool2.getField(row1, "Name", String.class);
             System.out.println(name);
 
-            JsonTool.delField(row1, "Name");
-            name = JsonTool.getField(row1, "Name", String.class);
+            JsonTool2.delField(row1, "Name");
+            name = JsonTool2.getField(row1, "Name", String.class);
             System.out.println(name);
 
-            JsonTool.delField(result, "2");
+            JsonTool2.delField(result, "2");
             StringXTool.printOut(result);
 
 
