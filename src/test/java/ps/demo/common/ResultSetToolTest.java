@@ -15,6 +15,19 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ResultSetToolTest {
+/*
+"""
+[mysql]
+url=jdbc:mysql://localhost:3306/world?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
+username=root
+password=root
+driver=com.mysql.cj.jdbc.Driver
+showSql=true
+formatSql=false
+showParams=true
+sqlLevel=debug
+"""
+*/
 
     //@Test
     void convertToGsonObjList() {
