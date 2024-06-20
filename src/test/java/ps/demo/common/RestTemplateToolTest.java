@@ -58,6 +58,15 @@ class RestTemplateToolTest {
 
     }
 
+    //@Test
+    void getWithUriVariableObjectsForStr2() {
+        String url = "https://www.baidu.com/?key={par}";
+        //String reqBody = "{'a': '1', 'b': 2}";
+        String body = RestTemplateTool.getInstance().getWithUriVariableObjectsForStr(url, "parvalue1").getBody();
+        Console.log("body = {}", body);
+
+    }
+
     @Test
     void getWithUriVariableObjectsForT() {
     }

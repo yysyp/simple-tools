@@ -65,5 +65,5 @@
 <!--        <appender-ref ref="FILE" />-->
     </root>
     <logger name="org.springframework" level="DEBUG" />
-
+    <logger name="ps.demo" level="DEBUG"/>
 </configuration>
