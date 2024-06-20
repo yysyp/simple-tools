@@ -31,6 +31,10 @@ spring:
     import:
       - optional:c:/myconfigs/app.yml
 
+myprop:
+  connUrl: hhh-${TMP}-bbb
+  age: 123
+
 ---
 
 spring:
