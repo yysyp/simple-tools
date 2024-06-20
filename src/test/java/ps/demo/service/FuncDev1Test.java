@@ -27,7 +27,7 @@ public class FuncDev1Test extends FuncBaseTest {
     public void uploadFile() {
         File file = new File("C:\\Users\\yysyp\\Desktop\\tmp\\1.jpg");
         String key = "aaabbbccc";
-        String url = "http://localhost:8080/api/upload/file?key={key}";
+        String url = "http://localhost:8084/api/upload/file?key={key}";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
