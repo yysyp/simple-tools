@@ -36,6 +36,7 @@ public class XlsbTest {
 
         //log.info("data={}", data);
         StringXTool.printOut(data);
+        opcPackage.close();
     }
 
 }
